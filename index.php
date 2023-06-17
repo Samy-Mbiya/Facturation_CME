@@ -1,0 +1,1 @@
+<?php echo "<script type='text/javascript'>  document.location.replace('vue/index.php');</script>";?>
