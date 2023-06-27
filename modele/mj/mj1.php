@@ -17,7 +17,7 @@ if ($_POST) {
 				));
 			}
 		}
-	} // Fin code 4
+	} // Fin code 4 
 
 	if ($code = 5) {
 		//Partie d l'enregistrement du LABO covid
