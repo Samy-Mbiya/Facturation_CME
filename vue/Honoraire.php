@@ -51,10 +51,13 @@ require 'Navbar.php';
         <h4> <u>Honoraire</u></h4>
         <div>
            <!-- Ajout -->
-          <table>
+          <table class="table table-striped table-bordered" id="Table_Honoraire">
             <tbody>
             <tr>
-                  <td><textarea name="Desc"  id="Desc"> </textarea></td>
+                  <td><input type="text" name="Desc"  id="Desc"></td>
+                  <td>
+                    <input Type="text" name="Qt"  id="Qt">
+                  </td>
                   <td>
                     <input Type="text" name="Prix_autre"  id="Prix_autre">
                   </td>
@@ -99,63 +102,65 @@ require 'Navbar.php';
               ?>
                 <tr>
                   <td>
-                    <label><?php echo $t['Nom_ex'] ?> <?php echo $t['Type_ex'] ?></label>
+                     <input type="text" name="description[]" id="description"value="<?php echo $t['Type_ex'] ?>"/>
                   </td>
                   <td>
-                    <input type="text" name="valnorm[]" id="valnorm" value="<?php echo $t['Val_normal']; ?>" />
+                    <input type="text" name="Prix[]" id="Prix" />
                   </td> 
                   <td>
-                    <input type="text" value="Labo" name="Type" id="Type" />
+                    <input type="text" value="Labo" name="Type[]" id="Type" />
                   </td>
                 </tr>
               <?php } ?>
-
               <!-- Imagerie -->
               <?php
                 $aff2 = $conn->query("SELECT * FROM imagerie WHERE  Id_cons='$Id_con'");
                while ($t = $aff2->fetch()) { ?>
                   <tr>
-                    <td><?php echo $t['Exd']; ?></td>
+                    <td><input type="text" name="description[]" id="description"value="<?php echo $t['Exd']; ?>"></td>
                     <td>
-                      <input type="text" name="Priximg[]" id="Priximg" />
+                      <input type="text" name="Prix[]" id="Prix" />
                     </td>
                     <td>
-                      <input type="text" value="Image" name="Type" id="Type" />
+                      <input type="text" value="Image" name="Type[]" id="Type" />
                     </td>
                   </tr>
                 <?php } ?>
                 <!-- Autre -->
                 <tr>
-                  <td><input Type="text" name="chambre"  id="chambre" value="Occupation de chambre"></td>
+                  <td><input Type="text" name="description[]"  id="description" value="Occupation de chambre"></td>
                   <td>
-                    <input Type="text" name="Prix"  id="Prix">
+                    <input Type="text" name="Prix[]"  id="Prix">
                   </td>
                   <td>
-                    <input type="text" value="Chambre" name="Type" id="Type" />
+                    <input type="text" value="Chambre" name="Type[]" id="Type" />
                   </td>
                 </tr>
                 <tr>
-                  <td><input Type="text" name="infirmiere"  id="infirmiere" value="Actes et soins infirmières"></td>
+                  <td><input Type="text" name="description[]"  id="infdescription" value="Actes et soins infirmières"></td>
                   <td>
-                    <input Type="text" name="Prix"  id="Prix">
+                    <input Type="text" name="Prix[]"  id="Prix">
                   </td>  
                   <td>
-                    <input Type="text" value="infirmier" name="Type" id="Type" />
+                    <input Type="text"  name="Type[]" id="Type" value="infirmier"/>
                   </td>
                 </tr>
                 <tr>
-                  <td><input Type="text" name="VM"  id="VM" value="Visite médicale"></td>
+                  <td><input Type="text" name="description[]"  id="description" value="Visite médicale"></td>
                   <td>
-                    <input Type="text" name="Prix"  id="Prix">
+                    <input Type="text" name="Prix[]"  id="Prix">
                   </td>
                   <td>
-                    <input Type="text" value="VM" name="Type" id="Type" />
+                    <input Type="text"  name="Type[]" id="Type" value="VM"/>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>     
           <div align="right">
+            <input style="width:10px; visibility:collapse"  name="code" id="code" value="1" />
+            <input style="width:10px; visibility:collapse"  name="id_pat" id="id_pat" value="<?php echo $id ?>" />
+            <input style="width:10px; visibility:collapse"  name="id_cons" id="id_cons" value="<?php $_GET['Id_consultation'] ?>" />
             <button class="btn btn-primary" id="Enrg_Fac"><i class="icon-ok-sign"></i> Valider</button>
           </div>
         </form>

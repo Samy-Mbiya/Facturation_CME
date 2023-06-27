@@ -4,6 +4,7 @@ $(document).ready(function () {
 	recherche_pat();
 	affichage();
 	ajouterLigne();
+	enregistrement_honoraire();
 });
 
 function affichage() {
@@ -11,7 +12,7 @@ function affichage() {
 	$.get("../modele/Modele.php", function (data) { // on recuper les donnees dans la page Modele.php
 		$("#Liste_Patient").html(data); // on l'affiche a la page dans la div voulu
 	});
-// Affichage liste Covid
+// Affichage liste Facture
 $.get("../modele/Modele_Fac.php", function (data) { // on recuper les donnees dans la page Modele.php
 		$("#Modele_Fac").html(data); // on l'affiche a la page dans la div voulu
 	});
@@ -159,15 +160,6 @@ function recherche_pat() {
 		});
 	});// Fin recherche Patient	
 
-	// Affichage des information du patient 
-	$.get("../modele/rech/rech.php", function (data) { // on recuper les donnees dans la page Liste_Patients.php
-		$("#Aff").click(function (event) {
-			event.preventDefault();
-			var id_p = $('#id_p').val();
-			alert('yeeeees');
-		});
-	});// Fin recherche Patient
-
 }
 
 // Ajout  de la ligne d'un tableau
@@ -181,9 +173,9 @@ function ajouterLigne()
 			var Col_Description = ligne.insertCell(0); 
 			var Col_Prix = ligne.insertCell(1);
 			var Col_Type = ligne.insertCell(2);
-			Col_Description.innerHTML += " <input type='text' name='Autre'  id = 'Autre' value ='"+ document.getElementById("Desc").value +"' />"; // Ajout de information de champs
-			Col_Prix.innerHTML += " <input type='text' name='Autre'  id = 'Autre' value ='"+ document.getElementById("Prix_autre").value +"' />"; // Ajout de information de champs 
-			Col_Type.innerHTML += " <input type='text' name='Autre'  id = 'Autre' value ='"+ document.getElementById("Type_autre").value +"' />"; // Ajout de information de 
+			Col_Description.innerHTML += " <input type='text' name='description[]'  id = 'description' value ='"+ document.getElementById("Desc").value +"' />"; // Ajout de information de champs
+			Col_Prix.innerHTML += " <input type='text' name='Prix[]'  id = 'Prix' value ='"+ document.getElementById("Prix_autre").value +"' />"; // Ajout de information de champs 
+			Col_Type.innerHTML += " <input type='text' name='Type[]'  id = 'Type' value ='"+ document.getElementById("Type_autre").value +"' />"; // Ajout de information de 
 			
 			// Vider le champs
 			document.getElementById("Desc").value="";
@@ -191,5 +183,31 @@ function ajouterLigne()
 			document.getElementById("Type_autre").value="";
 		})
 
+	});
+}
+
+function enregistrement_honoraire()
+{
+	$.get("../vue/Honoraire.php", function(data){
+	$("#Enrg_Fac").click(function(event){
+		event.preventDefault(); /* garde le chargement sans bouger*/
+		var url = "../vue/Liste_Patients.php";//Liste des examen a faire
+		var Prix=$("#Prix").val();
+		if (Prix == "") {
+			alert("Entrez les informations de champs vides");
+		} else {
+			$.ajax({
+				url: "../modele/Ajout/ajout.php",
+				method: "post",
+				data: $('form').serialize(),
+				dataType: "text",
+				success: function (strMessage) {
+					//$("#message").html(strMessage)
+					//window.location = url;
+					}
+			})
+		}
 	})
+	});
+
 }
